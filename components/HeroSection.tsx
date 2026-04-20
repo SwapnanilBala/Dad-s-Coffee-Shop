@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { DeliveryWidget } from "./DeliveryWidget";
 import { useLanguage } from "@/lib/LanguageContext";
 
@@ -25,9 +26,12 @@ export default function HeroSection() {
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button className="px-8 py-4 bg-gradient-to-r from-amber-800 to-amber-700 text-white rounded-full font-semibold hover:from-amber-900 hover:to-amber-800 transition-all hover:shadow-soft-lg transform hover:-translate-y-1 shadow-soft">
+              <Link
+                href="/menu"
+                className="px-8 py-4 bg-gradient-to-r from-amber-800 to-amber-700 text-white rounded-full font-semibold hover:from-amber-900 hover:to-amber-800 transition-all hover:shadow-soft-lg transform hover:-translate-y-1 shadow-soft text-center"
+              >
                 {t.hero.startOrdering}
-              </button>
+              </Link>
               <button className="px-8 py-4 bg-pastel-pink text-text-dark rounded-full font-semibold hover:bg-red-200 transition-all hover:shadow-soft-lg transform hover:-translate-y-1 border-2 border-pastel-pink">
                 {t.hero.seeOffers}
               </button>
