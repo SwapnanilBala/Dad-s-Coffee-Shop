@@ -25,6 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    // Prerendered HTML is English; LanguageProvider updates this after hydration
+    // to match the visitor's stored preference.
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}

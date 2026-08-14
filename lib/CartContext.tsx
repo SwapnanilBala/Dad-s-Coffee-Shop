@@ -1,6 +1,12 @@
 "use client";
 
 import { createContext, useContext, useState, useCallback, ReactNode } from "react";
+import { usePersistentState } from "./usePersistentState";
+
+const CART_STORAGE_KEY = "coffeebliss-cart";
+
+/** Stable reference so the persisted-state hook is not handed a new array each render. */
+const EMPTY_CART: CartItem[] = [];
 
 export interface CartItem {
   cartId: string; // unique per cart line (itemId + options combo)
@@ -33,7 +39,14 @@ function buildCartId(item: Omit<CartItem, "cartId" | "quantity">): string {
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
+  // Persisted so a refresh or an accidental tab close does not empty the cart.
+  //
+  // Note that each line stores the price it was added at. That is correct for
+  // display, but it means a stale cart can disagree with the current menu — the
+  // server must reprice every line at checkout rather than trusting these values.
+  const [items, setItems] = usePersistentState<CartItem[]>(CART_STORAGE_KEY, EMPTY_CART);
+
+  // Deliberately not persisted: reopening the drawer on every page load is noise.
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   const addItem = useCallback((newItem: Omit<CartItem, "cartId" | "quantity">) => {
@@ -48,11 +61,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
       return [...prev, { ...newItem, cartId, quantity: 1 }];
     });
     setIsCartOpen(true);
-  }, []);
+  }, [setItems]);
 
   const removeItem = useCallback((cartId: string) => {
     setItems((prev) => prev.filter((i) => i.cartId !== cartId));
-  }, []);
+  }, [setItems]);
 
   const updateQuantity = useCallback((cartId: string, quantity: number) => {
     if (quantity <= 0) {
@@ -62,9 +75,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
         prev.map((i) => (i.cartId === cartId ? { ...i, quantity } : i))
       );
     }
-  }, []);
+  }, [setItems]);
 
-  const clearCart = useCallback(() => setItems([]), []);
+  const clearCart = useCallback(() => setItems(EMPTY_CART), [setItems]);
 
   const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
   // Integer paise throughout — no rounding step, because nothing is ever fractional.

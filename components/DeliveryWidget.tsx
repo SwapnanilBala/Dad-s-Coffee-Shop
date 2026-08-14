@@ -3,11 +3,13 @@
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/lib/LanguageContext";
 
+// Module scope so it is not rebuilt each render, which made it an unstable
+// effect dependency and restarted the clock interval on every re-render.
+const localeMap = { en: "en-IN", bn: "bn-IN", hi: "hi-IN" };
+
 export function DeliveryWidget() {
   const { language, t } = useLanguage();
   const [time, setTime] = useState<string>("");
-
-  const localeMap = { en: "en-US", bn: "bn-BD", hi: "hi-IN" };
 
   useEffect(() => {
     const updateTime = () => {
