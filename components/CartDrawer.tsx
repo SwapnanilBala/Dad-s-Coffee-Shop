@@ -3,9 +3,10 @@
 import { useCart } from "@/lib/CartContext";
 import { useLanguage } from "@/lib/LanguageContext";
 import { getMenuItemById } from "@/lib/menuData";
+import { formatINR } from "@/lib/currency";
 
 export default function CartDrawer() {
-  const { items, removeItem, updateQuantity, clearCart, totalItems, totalPrice, isCartOpen, setIsCartOpen } = useCart();
+  const { items, removeItem, updateQuantity, clearCart, totalItems, totalPricePaise, isCartOpen, setIsCartOpen } = useCart();
   const { t } = useLanguage();
 
   if (!isCartOpen) return null;
@@ -94,7 +95,7 @@ export default function CartDrawer() {
                           </button>
                         </div>
                         <span className="font-semibold text-text-dark text-sm">
-                          ${(item.unitPrice * item.quantity).toFixed(2)}
+                          {formatINR(item.unitPricePaise * item.quantity)}
                         </span>
                       </div>
                     </div>
@@ -118,7 +119,7 @@ export default function CartDrawer() {
             <div className="flex items-center justify-between">
               <span className="text-text-muted font-medium">{t.cart.total}</span>
               <span className="text-xl font-bold text-text-dark">
-                ${totalPrice.toFixed(2)}
+                {formatINR(totalPricePaise)}
               </span>
             </div>
             <button className="w-full py-4 bg-gradient-to-r from-amber-800 to-amber-700 text-white rounded-full font-semibold hover:from-amber-900 hover:to-amber-800 transition-all shadow-soft text-center">

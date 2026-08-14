@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import ProductDetailModal from "@/components/ProductDetailModal";
 import { useLanguage } from "@/lib/LanguageContext";
 import { categories, getMenuItemsByCategory, MenuItem } from "@/lib/menuData";
+import { formatINR } from "@/lib/currency";
 
 export default function MenuPage() {
   const { t } = useLanguage();
@@ -73,7 +74,7 @@ export default function MenuPage() {
                         </p>
                       )}
                       <p className="text-pastel-brown font-semibold mt-2">
-                        ${item.basePrice.toFixed(2)}
+                        {formatINR(item.basePricePaise)}
                       </p>
                     </div>
                     <button

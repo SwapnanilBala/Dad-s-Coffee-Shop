@@ -7,10 +7,12 @@ import {
   MenuItem,
   sizes,
   milkOptions,
+  milkPriceAddPaise,
   sugarLevels,
   extras,
-  calculateItemPrice,
+  calculateItemPricePaise,
 } from "@/lib/menuData";
+import { formatINR, formatAddOn } from "@/lib/currency";
 
 interface ProductDetailModalProps {
   item: MenuItem;
@@ -32,7 +34,7 @@ export default function ProductDetailModal({ item, onClose }: ProductDetailModal
     );
   };
 
-  const currentPrice = calculateItemPrice(item, selectedSize, selectedMilk, selectedExtras);
+  const currentPricePaise = calculateItemPricePaise(item, selectedSize, selectedMilk, selectedExtras);
 
   const handleAddToCart = () => {
     addItem({
@@ -41,7 +43,7 @@ export default function ProductDetailModal({ item, onClose }: ProductDetailModal
       milk: selectedMilk,
       sugar: selectedSugar,
       extras: selectedExtras,
-      unitPrice: currentPrice,
+      unitPricePaise: currentPricePaise,
     });
     onClose();
   };
@@ -71,7 +73,7 @@ export default function ProductDetailModal({ item, onClose }: ProductDetailModal
               <p className="text-text-muted mt-2 text-sm">{itemDesc}</p>
             )}
             <p className="text-pastel-brown font-bold text-lg mt-2">
-              ${item.basePrice.toFixed(2)}
+              {formatINR(item.basePricePaise)}
             </p>
           </div>
 
@@ -95,9 +97,9 @@ export default function ProductDetailModal({ item, onClose }: ProductDetailModal
                       }`}
                     >
                       <div>{t.menuData.sizes[size.id]}</div>
-                      {size.priceAdd > 0 && (
+                      {size.priceAddPaise > 0 && (
                         <div className="text-xs opacity-75 mt-0.5">
-                          +${size.priceAdd.toFixed(2)}
+                          {formatAddOn(size.priceAddPaise)}
                         </div>
                       )}
                     </button>
@@ -113,19 +115,25 @@ export default function ProductDetailModal({ item, onClose }: ProductDetailModal
                   {t.productDetail.milk}
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {milkOptions.map((milk) => (
-                    <button
-                      key={milk}
-                      onClick={() => setSelectedMilk(milk)}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition-all border-2 ${
-                        selectedMilk === milk
-                          ? "bg-pastel-lavender text-text-dark border-pastel-brown border-opacity-40"
-                          : "bg-white text-text-muted border-pastel-brown border-opacity-10 hover:border-opacity-30"
-                      }`}
-                    >
-                      {t.menuData.milkOptions[milk]}
-                    </button>
-                  ))}
+                  {milkOptions.map((milk) => {
+                    const addOn = milkPriceAddPaise[milk] ?? 0;
+                    return (
+                      <button
+                        key={milk}
+                        onClick={() => setSelectedMilk(milk)}
+                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all border-2 ${
+                          selectedMilk === milk
+                            ? "bg-pastel-lavender text-text-dark border-pastel-brown border-opacity-40"
+                            : "bg-white text-text-muted border-pastel-brown border-opacity-10 hover:border-opacity-30"
+                        }`}
+                      >
+                        {t.menuData.milkOptions[milk]}
+                        {addOn > 0 && (
+                          <span className="opacity-75 ml-1">{formatAddOn(addOn)}</span>
+                        )}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             )}
@@ -177,7 +185,7 @@ export default function ProductDetailModal({ item, onClose }: ProductDetailModal
                           {selected ? "✓ " : ""}
                           {t.menuData.extras[extra.id]}
                         </span>
-                        <span className="text-text-muted">+${extra.price.toFixed(2)}</span>
+                        <span className="text-text-muted">{formatAddOn(extra.pricePaise)}</span>
                       </button>
                     );
                   })}
@@ -192,7 +200,7 @@ export default function ProductDetailModal({ item, onClose }: ProductDetailModal
               onClick={handleAddToCart}
               className="w-full py-4 bg-gradient-to-r from-amber-800 to-amber-700 text-white rounded-full font-semibold hover:from-amber-900 hover:to-amber-800 transition-all shadow-soft text-center text-lg"
             >
-              {t.productDetail.addToCart} — ${currentPrice.toFixed(2)}
+              {t.productDetail.addToCart} — {formatINR(currentPricePaise)}
             </button>
           </div>
         </div>

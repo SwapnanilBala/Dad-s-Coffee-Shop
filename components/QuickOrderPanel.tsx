@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useCart } from "@/lib/CartContext";
-import { menuItems, MenuItem, calculateItemPrice } from "@/lib/menuData";
+import { menuItems, MenuItem, calculateItemPricePaise } from "@/lib/menuData";
+import { formatINR } from "@/lib/currency";
 import ProductDetailModal from "./ProductDetailModal";
 
 export default function QuickOrderPanel() {
@@ -23,7 +24,7 @@ export default function QuickOrderPanel() {
       milk: item.hasMilk ? "regular" : "default",
       sugar: item.hasSugar ? "regular" : "default",
       extras: [],
-      unitPrice: calculateItemPrice(item, "medium", "regular", []),
+      unitPricePaise: calculateItemPricePaise(item, "medium", "regular", []),
     });
   };
 
@@ -47,7 +48,7 @@ export default function QuickOrderPanel() {
                   <div className="text-5xl group-hover:scale-110 transition-transform">{item.emoji}</div>
                   <div className="text-center">
                     <h3 className="font-bold text-text-dark text-lg">{itemName}</h3>
-                    <p className="text-text-muted font-semibold">${item.basePrice.toFixed(2)}</p>
+                    <p className="text-text-muted font-semibold">{formatINR(item.basePricePaise)}</p>
                   </div>
                   <button
                     onClick={(e) => handleQuickAdd(item, e)}

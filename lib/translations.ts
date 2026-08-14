@@ -32,12 +32,6 @@ export const translations = {
     // Quick Order
     order: {
       title: "Order in Seconds",
-      drinks: [
-        { name: "Espresso", price: "$2.99" },
-        { name: "Cappuccino", price: "$4.50" },
-        { name: "Latte", price: "$4.99" },
-        { name: "Mocha", price: "$5.50" },
-      ],
     },
     // Footer
     footer: {
@@ -145,9 +139,9 @@ export const translations = {
       } as Record<string, string>,
       milkOptions: {
         regular: "Regular",
-        oat: "Oat (+$0.50)",
-        almond: "Almond (+$0.50)",
-        soy: "Soy (+$0.30)",
+        oat: "Oat",
+        almond: "Almond",
+        soy: "Soy",
         none: "No Milk",
       } as Record<string, string>,
       sugarLevels: {
@@ -211,12 +205,6 @@ export const translations = {
     },
     order: {
       title: "সেকেন্ডে অর্ডার করুন",
-      drinks: [
-        { name: "এসপ্রেসো", price: "৳২৯৯" },
-        { name: "ক্যাপুচিনো", price: "৳৪৫০" },
-        { name: "ল্যাটে", price: "৳৪৯৯" },
-        { name: "মোকা", price: "৳৫৫০" },
-      ],
     },
     footer: {
       rewardsTitle: "আমাদের রিওয়ার্ডস ক্লাবে যোগ দিন",
@@ -324,9 +312,9 @@ export const translations = {
       } as Record<string, string>,
       milkOptions: {
         regular: "নিয়মিত",
-        oat: "ওট (+৳৫০)",
-        almond: "বাদাম (+৳৫০)",
-        soy: "সয়া (+৳৩০)",
+        oat: "ওট",
+        almond: "বাদাম",
+        soy: "সয়া",
         none: "দুধ ছাড়া",
       } as Record<string, string>,
       sugarLevels: {
@@ -383,12 +371,6 @@ export const translations = {
     },
     order: {
       title: "सेकंडों में ऑर्डर करें",
-      drinks: [
-        { name: "एस्प्रेसो", price: "₹249" },
-        { name: "कैपुचीनो", price: "₹375" },
-        { name: "लाटे", price: "₹415" },
-        { name: "मोका", price: "₹459" },
-      ],
     },
     footer: {
       rewardsTitle: "हमारे रिवार्ड्स क्लब में शामिल हों",
@@ -496,9 +478,9 @@ export const translations = {
       } as Record<string, string>,
       milkOptions: {
         regular: "सामान्य",
-        oat: "ओट (+₹40)",
-        almond: "बादाम (+₹40)",
-        soy: "सोया (+₹25)",
+        oat: "ओट",
+        almond: "बादाम",
+        soy: "सोया",
         none: "दूध नहीं",
       } as Record<string, string>,
       sugarLevels: {

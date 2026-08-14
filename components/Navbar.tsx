@@ -9,6 +9,7 @@ import ProductDetailModal from "./ProductDetailModal";
 import { useLanguage } from "@/lib/LanguageContext";
 import { useCart } from "@/lib/CartContext";
 import { menuItems, MenuItem } from "@/lib/menuData";
+import { formatINR } from "@/lib/currency";
 
 export default function Navbar() {
   const { t } = useLanguage();
@@ -121,7 +122,7 @@ export default function Navbar() {
                                 </p>
                               </div>
                               <span className="text-sm font-semibold text-pastel-brown flex-shrink-0">
-                                ${item.basePrice.toFixed(2)}
+                                {formatINR(item.basePricePaise)}
                               </span>
                             </button>
                           ))}
