@@ -5,6 +5,25 @@
   --foreground: #5a4a42;
 }
 
+/* Brand palette. Tailwind v4 is configured in CSS, not JS — these previously
+   lived in tailwind.config.ts, which v4 never loaded, so none of the
+   pastel-*, text-* or shadow-soft utilities generated any CSS. */
+@theme {
+  --color-pastel-cream: #FFF7E9;
+  --color-pastel-brown: #C8A27E;
+  --color-pastel-brown-dark: #6B5344;
+  --color-pastel-pink: #F4D4D4;
+  --color-pastel-peach: #F5D5C0;
+  --color-pastel-lavender: #E8D5E8;
+  --color-pastel-mint: #D4E8E0;
+
+  --color-text-dark: #3D2817;
+  --color-text-muted: #5a4a42;
+
+  --shadow-soft: 0 2px 8px rgb(0 0 0 / 0.08);
+  --shadow-soft-lg: 0 4px 16px rgb(0 0 0 / 0.1);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -15,7 +34,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
 @keyframes float {
@@ -44,4 +63,11 @@ body {
 
 .fade-in-up {
   animation: fadeInUp 0.6s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float,
+  .fade-in-up {
+    animation: none;
+  }
 }
