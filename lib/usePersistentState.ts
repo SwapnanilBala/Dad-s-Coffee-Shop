@@ -32,6 +32,7 @@ function notify(key: string) {
 }
 
 function readStored(key: string): string | null {
+  if (typeof window === "undefined") return null;
   try {
     return window.localStorage.getItem(key);
   } catch {
@@ -58,12 +59,17 @@ export function usePersistentState<T>(key: string, fallback: T) {
         onChange();
       }
     };
-    window.addEventListener("storage", onStorage);
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("storage", onStorage);
+    }
 
     return () => {
       subscribers.delete(onChange);
       if (subscribers.size === 0) listeners.delete(key);
-      window.removeEventListener("storage", onStorage);
+      if (typeof window !== "undefined") {
+        window.removeEventListener("storage", onStorage);
+      }
     };
   }, [key]);
 

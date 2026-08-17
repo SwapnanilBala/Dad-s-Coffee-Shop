@@ -6,7 +6,125 @@ export const languages = {
   hi: { name: "Hindi", nativeName: "हिन्दी", flag: "🇮🇳", code: "हि" },
 };
 
-export const translations = {
+export type TranslationKeys = {
+  nav: {
+    home: string;
+    menu: string;
+    order: string;
+    rewards: string;
+    about: string;
+    searchPlaceholder: string;
+    popularSearches: string;
+    signUp: string;
+    tags: string[];
+  };
+  hero: {
+    headline: string;
+    highlight: string;
+    subtext: string;
+    startOrdering: string;
+    seeOffers: string;
+    estimatedDelivery: string;
+  };
+  order: {
+    title: string;
+  };
+  footer: {
+    rewardsTitle: string;
+    rewardsDesc: string;
+    learnMore: string;
+    brandTagline: string;
+    emailPlaceholder: string;
+    subscribe: string;
+    promoHeadline: string;
+    promoDesc: string;
+    promoDelivery: string;
+    sections: {
+      company: { title: string; links: string[] };
+      support: { title: string; links: string[] };
+      legal: { title: string; links: string[] };
+      follow: { title: string; links: string[] };
+    };
+    copyright: string;
+  };
+  signup: {
+    welcomeSignup: string;
+    welcomeLogin: string;
+    signupDesc: string;
+    loginDesc: string;
+    perks: string[];
+    tabSignup: string;
+    tabLogin: string;
+    stepLabel: string;
+    createAccount: string;
+    basics: string;
+    almostThere: string;
+    tellUsLove: string;
+    continueWith: string;
+    fullName: string;
+    fullNamePlaceholder: string;
+    email: string;
+    emailPlaceholder: string;
+    password: string;
+    passwordPlaceholder: string;
+    strength: string;
+    strengthLevels: string[];
+    continue: string;
+    favoriteBrew: string;
+    coffeeOptions: string[];
+    agreeTerms: string;
+    terms: string;
+    and: string;
+    privacy: string;
+    receiveUpdates: string;
+    back: string;
+    finish: string;
+    welcomeBack: string;
+    signInContinue: string;
+    rememberMe: string;
+    forgotPassword: string;
+    login: string;
+    newHere: string;
+    createOne: string;
+    successMsg: string;
+  };
+  language: {
+    label: string;
+    select: string;
+  };
+  menu: {
+    title: string;
+    subtitle: string;
+    categories: Record<string, string>;
+  };
+  menuData: {
+    items: Record<string, { name: string; desc: string }>;
+    sizes: Record<string, string>;
+    milkOptions: Record<string, string>;
+    sugarLevels: Record<string, string>;
+    extras: Record<string, string>;
+  };
+  cart: {
+    title: string;
+    empty: string;
+    total: string;
+    checkout: string;
+    clear: string;
+  };
+  productDetail: {
+    size: string;
+    milk: string;
+    sugar: string;
+    extras: string;
+    addToCart: string;
+  };
+  search: {
+    noResults: string;
+    resultsFor: string;
+  };
+};
+
+export const translations: Record<Language, TranslationKeys> = {
   en: {
     // Navbar
     nav: {
@@ -517,4 +635,3 @@ export const translations = {
   },
 };
 
-export type TranslationKeys = typeof translations.en;
